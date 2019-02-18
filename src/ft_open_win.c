@@ -6,7 +6,7 @@
 /*   By: rrhaenys <rrhaenys@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/05 07:03:09 by rrhaenys          #+#    #+#             */
-/*   Updated: 2019/02/18 22:03:58 by rrhaenys         ###   ########.fr       */
+/*   Updated: 2019/02/19 02:00:56 by rrhaenys         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,13 +15,14 @@
 void		ft_start_game(t_data *data, char *str)
 {
 	data->mydata = (t_mydata *)malloc(sizeof(t_mydata));
-	data->mydata->posX = 1;
-	data->mydata->posY = 1;
-	data->mydata->dirX = -1;
+	data->mydata->posX = 2;
+	data->mydata->posY = 2;
+	data->mydata->dirX = 1;
 	data->mydata->dirY = 0;
 	data->mydata->planeX = 0;
-	data->mydata->planeY = 0.66;
+	data->mydata->planeY = -0.66;
 	ft_map_init(data, str);
+	load_textures(data);
 }
 
 void		ft_open_win(char *str)

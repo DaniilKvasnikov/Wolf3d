@@ -6,7 +6,7 @@
 /*   By: rrhaenys <rrhaenys@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/16 21:16:54 by rrhaenys          #+#    #+#             */
-/*   Updated: 2019/02/18 22:02:56 by rrhaenys         ###   ########.fr       */
+/*   Updated: 2019/02/18 22:21:17 by rrhaenys         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int			ft_getsize(char **str)
 	return (size);
 }
 
-int			ft_check_str_int(char **str, int *max)
+int			ft_check_str_int(char **str)
 {
 	int		index;
 	int		par;
@@ -35,13 +35,11 @@ int			ft_check_str_int(char **str, int *max)
 			if (ft_strlen(str[index]) != 1 || str[index][0] != '0')
 				return (1);
 		par = abs(par);
-		if (par > *max)
-			*max = par;
 	}
 	return (0);
 }
 
-int			ft_check_str(char *str, int *max)
+int			ft_check_str(char *str)
 {
 	char	**res;
 	char	**ints;
@@ -58,7 +56,7 @@ int			ft_check_str(char *str, int *max)
 		ints = ft_strsplit(res[index], ' ');
 		if (size == 0)
 			size = ft_getsize(ints);
-		if (size != ft_getsize(ints) || ft_check_str_int(ints, max))
+		if (size != ft_getsize(ints) || ft_check_str_int(ints))
 			cmp = 0;
 		ft_free(ints);
 	}
@@ -91,7 +89,7 @@ int			*ft_get_size(char *str)
 	return (size);
 }
 
-void		ft_create_map(t_data *data, char *str, int max)
+void		ft_create_map(t_data *data, char *str)
 {
 	char	**res;
 	char	**ints;
@@ -108,7 +106,7 @@ void		ft_create_map(t_data *data, char *str, int max)
 		index2 = -1;
 		while (ints[++index2] != NULL)
 		{
-			data->mydata->map.map[++index] = ft_atoi(ints[index2]) / (float)max * MAX_H;
+			data->mydata->map.map[++index] = ft_atoi(ints[index2]);
 		}
 		ft_free(ints);
 	}

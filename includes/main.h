@@ -6,7 +6,7 @@
 /*   By: rrhaenys <rrhaenys@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/30 19:44:56 by rrhaenys          #+#    #+#             */
-/*   Updated: 2019/02/18 22:02:03 by rrhaenys         ###   ########.fr       */
+/*   Updated: 2019/02/19 02:01:35 by rrhaenys         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,15 @@
 
 # define MAX_H 20
 
+typedef struct	s_texture
+{
+	void		*image;
+	int			*data;
+	int			bpp;
+	int			sizeline;
+	int			end;
+}				t_texture;
+
 typedef struct	s_map
 {
 	int			*map;
@@ -63,6 +72,7 @@ typedef struct	s_mydata
 	double		planeY;
 	int			**worldMap;
 	t_map		map;
+	t_texture	texture[1];
 }				t_mydata;
 
 typedef struct	s_img
@@ -96,11 +106,14 @@ void			ft_player_step_forward(t_data *data, int turn);
 
 void			ft_map_init(t_data *data, char *filename);
 char			*ft_get_file_str(char *filename);
-int				ft_check_str(char *str, int *max);
-void			ft_create_map(t_data *data, char *str, int max);
+int				ft_check_str(char *str);
+void			ft_create_map(t_data *data, char *str);
 int				*ft_get_size(char *str);
 void			ft_free_ptr(void *data);
 void			ft_free(char **str);
+
+
+void			load_textures(t_data *data);
 
 #define mapWidth 24
 #define mapHeight 24

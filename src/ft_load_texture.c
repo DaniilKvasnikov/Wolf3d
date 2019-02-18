@@ -1,28 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_clearwin.c                                      :+:      :+:    :+:   */
+/*   ft_load_texture.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rrhaenys <rrhaenys@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/02/06 01:37:54 by rrhaenys          #+#    #+#             */
-/*   Updated: 2019/02/19 02:00:32 by rrhaenys         ###   ########.fr       */
+/*   Created: 2019/02/19 01:32:26 by rrhaenys          #+#    #+#             */
+/*   Updated: 2019/02/19 02:04:57 by rrhaenys         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "main.h"
 
-void			ft_clearwin(t_data *data)
+void	load_textures(t_data *data)
 {
-	int index;
-	int size;
+	int		w;
+	int		h;
 
-	if (data->img->size_l <= 100)
-		return ;
-	index = -1;
-	size = WIN_W * WIN_H;
-	while (++index < size)
-		data->img->data[index] = 0;
-	mlx_put_image_to_window(data->mlx_ptr, data->mlx_win,
-		data->img->img_ptr, 0, 0);
+	w = 64;
+	h = 64;
+	data->mydata->texture[0].image = mlx_xpm_file_to_image(
+		data->mlx_ptr, "textures/stone.xpm", &w, &h);
+	data->mydata->texture[0].data = (int *)mlx_get_data_addr(
+		data->mydata->texture[0].image, &data->mydata->texture[0].bpp,
+		&data->mydata->texture[0].sizeline, &data->mydata->texture[0].end);
 }

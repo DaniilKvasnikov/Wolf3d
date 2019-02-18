@@ -12,81 +12,50 @@
 
 #include "main.h"
 
-int worldmap[mapWidth][mapHeight]=
-{
-	{1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1},
-	{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-	{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-	{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-	{1,0,0,0,0,0,2,2,2,2,2,0,0,0,0,3,0,3,0,3,0,0,0,1},
-	{1,0,0,0,0,0,2,0,0,0,2,0,0,0,0,0,0,0,0,0,0,0,0,1},
-	{1,0,0,0,0,0,2,0,0,0,2,0,0,0,0,3,0,0,0,3,0,0,0,1},
-	{1,0,0,0,0,0,2,0,0,0,2,0,0,0,0,0,0,0,0,0,0,0,0,1},
-	{1,0,0,0,0,0,2,2,0,2,2,0,0,0,0,3,0,3,0,3,0,0,0,1},
-	{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-	{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-	{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-	{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-	{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-	{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-	{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-	{1,4,4,4,4,4,4,4,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-	{1,4,0,4,0,0,0,0,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-	{1,4,0,0,0,0,5,0,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-	{1,4,0,4,0,0,0,0,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-	{1,4,0,4,4,4,4,4,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-	{1,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-	{1,4,4,4,4,4,4,4,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-	{1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1}
-};
-
 int				key_release(int key, t_data *data)
 {
-	double	rotSpeed;
-	double	moveSpeed;
+	double	rot_speed;
+	double	move_speed;
+	double	old_dirx;
+	double	old_planex;
 
-	rotSpeed = 0.03;
-	moveSpeed = 0.09;
+	rot_speed = 0.03;
+	move_speed = 0.09;
 	if (key == 53)
 		ft_close(data);
-	//move forward if no wall in front of you
-	else if (key == 13)
+	else if (key == 13 || key == 126)
 	{
-		if(worldmap[(int)(data->mydata->posX + data->mydata->dirX * moveSpeed)][(int)(data->mydata->posY)] == 0)
-			data->mydata->posX += data->mydata->dirX * moveSpeed;
-		if(worldmap[(int)(data->mydata->posX)][(int)(data->mydata->posY + data->mydata->dirY * moveSpeed)] == 0)
-			data->mydata->posY += data->mydata->dirY * moveSpeed;
+		if(data->mydata->map.map[((int)(data->mydata->posX + data->mydata->dirX * move_speed)) + ((int)(data->mydata->posY)) * data->mydata->map.size[0]] == 0)
+			data->mydata->posX += data->mydata->dirX * move_speed;
+		if(data->mydata->map.map[((int)(data->mydata->posX)) + ((int)(data->mydata->posY + data->mydata->dirY * move_speed)) * data->mydata->map.size[0]] == 0)
+			data->mydata->posY += data->mydata->dirY * move_speed;
 	}
-	//move backwards if no wall behind you
-	else if (key == 1)
+	else if (key == 1 || key == 125)
 	{
-		if(worldmap[(int)(data->mydata->posX - data->mydata->dirX * moveSpeed)][(int)(data->mydata->posY)] == 0)
-			data->mydata->posX -= data->mydata->dirX * moveSpeed;
-		if(worldmap[(int)(data->mydata->posX)][(int)(data->mydata->posY - data->mydata->dirY * moveSpeed)] == 0)
-			data->mydata->posY -= data->mydata->dirY * moveSpeed;
+		if(data->mydata->map.map[((int)(data->mydata->posX - data->mydata->dirX * move_speed)) + ((int)(data->mydata->posY)) * data->mydata->map.size[0]] == 0)
+			data->mydata->posX -= data->mydata->dirX * move_speed;
+		if(data->mydata->map.map[((int)(data->mydata->posX)) + ((int)(data->mydata->posY - data->mydata->dirY * move_speed)) * data->mydata->map.size[0]] == 0)
+			data->mydata->posY -= data->mydata->dirY * move_speed;
 	}
-	//rotate to the right
-	else if (key == 2)
+	else if (key == 2 || key == 124)
 	{
-		//both camera direction and camera plane must be rotated
-		double oldDirX = data->mydata->dirX;
-		data->mydata->dirX = data->mydata->dirX * cos(-rotSpeed) - data->mydata->dirY * sin(-rotSpeed);
-		data->mydata->dirY = oldDirX * sin(-rotSpeed) + data->mydata->dirY * cos(-rotSpeed);
-		double oldPlaneX = data->mydata->planeX;
-		data->mydata->planeX = data->mydata->planeX * cos(-rotSpeed) - data->mydata->planeY * sin(-rotSpeed);
-		data->mydata->planeY = oldPlaneX * sin(-rotSpeed) + data->mydata->planeY * cos(-rotSpeed);
+		old_dirx = data->mydata->dirX;
+		data->mydata->dirX = data->mydata->dirX * cos(-rot_speed) - data->mydata->dirY * sin(-rot_speed);
+		data->mydata->dirY = old_dirx * sin(-rot_speed) + data->mydata->dirY * cos(-rot_speed);
+		old_planex = data->mydata->planeX;
+		data->mydata->planeX = data->mydata->planeX * cos(-rot_speed) - data->mydata->planeY * sin(-rot_speed);
+		data->mydata->planeY = old_planex * sin(-rot_speed) + data->mydata->planeY * cos(-rot_speed);
 	}
-	//rotate to the left
-	else if (key == 0)
+	else if (key == 0 || key == 123)
 	{
-		//both camera direction and camera plane must be rotated
-		double oldDirX = data->mydata->dirX;
-		data->mydata->dirX = data->mydata->dirX * cos(rotSpeed) - data->mydata->dirY * sin(rotSpeed);
-		data->mydata->dirY = oldDirX * sin(rotSpeed) + data->mydata->dirY * cos(rotSpeed);
-		double oldPlaneX = data->mydata->planeX;
-		data->mydata->planeX = data->mydata->planeX * cos(rotSpeed) - data->mydata->planeY * sin(rotSpeed);
-		data->mydata->planeY = oldPlaneX * sin(rotSpeed) + data->mydata->planeY * cos(rotSpeed);
+		old_dirx = data->mydata->dirX;
+		data->mydata->dirX = data->mydata->dirX * cos(rot_speed) - data->mydata->dirY * sin(rot_speed);
+		data->mydata->dirY = old_dirx * sin(rot_speed) + data->mydata->dirY * cos(rot_speed);
+		old_planex = data->mydata->planeX;
+		data->mydata->planeX = data->mydata->planeX * cos(rot_speed) - data->mydata->planeY * sin(rot_speed);
+		data->mydata->planeY = old_planex * sin(rot_speed) + data->mydata->planeY * cos(rot_speed);
 	}
-	ft_printf("key=%d\n", key);
+	else
+		ft_printf("key=%d\n", key);
 	return (1);
 }
