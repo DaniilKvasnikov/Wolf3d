@@ -6,15 +6,22 @@
 /*   By: rrhaenys <rrhaenys@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/05 07:03:09 by rrhaenys          #+#    #+#             */
-/*   Updated: 2019/02/06 01:31:36 by rrhaenys         ###   ########.fr       */
+/*   Updated: 2019/02/18 22:03:58 by rrhaenys         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "main.h"
 
-void		ft_start_game(t_data *data)
+void		ft_start_game(t_data *data, char *str)
 {
-	ft_create_payer(data);
+	data->mydata = (t_mydata *)malloc(sizeof(t_mydata));
+	data->mydata->posX = 1;
+	data->mydata->posY = 1;
+	data->mydata->dirX = -1;
+	data->mydata->dirY = 0;
+	data->mydata->planeX = 0;
+	data->mydata->planeY = 0.66;
+	ft_map_init(data, str);
 }
 
 void		ft_open_win(char *str)
@@ -34,6 +41,6 @@ void		ft_open_win(char *str)
 	data.img->img_ptr = mlx_new_image(data.mlx_ptr, WIN_W, WIN_H);
 	data.img->data = (int *)mlx_get_data_addr(data.img->img_ptr,
 		&data.img->bpp, &data.img->size_l, &data.img->endian);
-	ft_start_game(&data);
+	ft_start_game(&data, str);
 	mlx_loop(data.mlx_ptr);
 }

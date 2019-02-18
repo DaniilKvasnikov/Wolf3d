@@ -6,7 +6,7 @@
 /*   By: rrhaenys <rrhaenys@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/30 19:44:56 by rrhaenys          #+#    #+#             */
-/*   Updated: 2019/02/06 03:11:07 by rrhaenys         ###   ########.fr       */
+/*   Updated: 2019/02/18 22:02:03 by rrhaenys         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 # include "ft_printf.h"
 # include <mlx.h>
+# include <math.h>
 
 # define WIN_W 1300
 # define WIN_H 1300
@@ -33,15 +34,35 @@
 # define B_NUM_4 86
 # define B_NUM_6 88
 
-typedef struct	s_player
+# define PRIN_RET(a,s) {if (a){ft_putendl(s); return (0);}}
+
+# define RGB_Red 0xff0000
+# define RGB_Green 0x00ff00
+# define RGB_Blue 0x87cefa
+# define RGB_White 0xffffff
+# define RGB_Yellow 0xffff33
+# define RGB_Black 0x000000
+
+# define BUF_SIZE 1024
+
+# define MAX_H 20
+
+typedef struct	s_map
 {
-	double		pos[3];
-	double		angle[2];
-}				t_player;
+	int			*map;
+	int			*size;
+}				t_map;
 
 typedef struct	s_mydata
 {
-	t_player	player;
+	double		posX;
+	double		posY;
+	double		dirX;
+	double		dirY;
+	double		planeX;
+	double		planeY;
+	int			**worldMap;
+	t_map		map;
 }				t_mydata;
 
 typedef struct	s_img
@@ -72,5 +93,16 @@ void			ft_create_payer(t_data *data);
 void			ft_draw_player(t_data *data);
 void			ft_turn_player(t_data *data, int turn);
 void			ft_player_step_forward(t_data *data, int turn);
+
+void			ft_map_init(t_data *data, char *filename);
+char			*ft_get_file_str(char *filename);
+int				ft_check_str(char *str, int *max);
+void			ft_create_map(t_data *data, char *str, int max);
+int				*ft_get_size(char *str);
+void			ft_free_ptr(void *data);
+void			ft_free(char **str);
+
+#define mapWidth 24
+#define mapHeight 24
 
 #endif
