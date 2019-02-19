@@ -6,7 +6,7 @@
 /*   By: rrhaenys <rrhaenys@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/19 04:03:14 by rrhaenys          #+#    #+#             */
-/*   Updated: 2019/02/19 06:12:17 by rrhaenys         ###   ########.fr       */
+/*   Updated: 2019/02/19 06:38:41 by rrhaenys         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,58 +94,51 @@ void			ft_test3(t_data *data, t_raycast *r)
 
 void			ft_test4(t_data *data, t_raycast *r)
 {
-		double floorXWall, floorYWall; //x, y position of the floor texel at the bottom of the wall
+	if (r->side == 1 && r->ray_dirx > 0)
+	{
+		r->floorx_wall = r->mapx;
+		r->floory_wall = (double)r->mapy + r->wallx;
+	}
+	else if (r->side == 1 && r->ray_dirx < 0)
+	{
+		r->floorx_wall = (double)r->mapx + 1.0;
+		r->floory_wall = (double)r->mapy + r->wallx;
+	}
+	else if (r->side == 2 && r->ray_diry > 0)
+	{
+		r->floorx_wall = (double)r->mapx + r->wallx;
+		r->floory_wall = r->mapy;
+	}
+	else
+	{
+		r->floorx_wall = (double)r->mapx + r->wallx;
+		r->floory_wall = (double)r->mapy + 1.0;
+	}
+}
 
-		//4 different wall directions possible
-		if(r->side == 1 && r->ray_dirx > 0)
-		{
-		  floorXWall = r->mapx;
-		  floorYWall = (double)r->mapy + r->wallx;
-		}
-		else if(r->side == 1 && r->ray_dirx < 0)
-		{
-		  floorXWall = (double)r->mapx + 1.0;
-		  floorYWall = (double)r->mapy + r->wallx;
-		}
-		else if(r->side == 2 && r->ray_diry > 0)
-		{
-		  floorXWall = (double)r->mapx + r->wallx;
-		  floorYWall = r->mapy;
-		}
-		else
-		{
-		  floorXWall = (double)r->mapx + r->wallx;
-		  floorYWall = (double)r->mapy + 1.0;
-		}
-
-		double distWall, distPlayer, currentDist;
-
-		distWall = r->perp_walldist;
-		distPlayer = 0.0;
-
-		if (r->draw_pos[1] < 0)
-			r->draw_pos[1] = WIN_H;
-			//becomes < 0 when the integer overflows
-
-		//draw the floor from drawEnd to the bottom of the screen
-		int	y;
-		for (y = r->draw_pos[1] + 1; y < WIN_H; y++)
-		{
-		  currentDist = (double)WIN_H / (2.0 * (double)y - (double)WIN_H); //you could make a small lookup table for this instead
-
-		  double weight = (currentDist - distPlayer) / (distWall - distPlayer);
-
-		  double currentFloorX = weight * floorXWall + (1.0 - weight) * data->mydata->posx;
-		  double currentFloorY = weight * floorYWall + (1.0 - weight) * data->mydata->posy;
-
-		  int floorTexX, floorTexY;
-		  floorTexX = (int)(currentFloorX * (double)64) % 64;
-		  floorTexY = (int)(currentFloorY * (double)64) % 64;
-
-		  //floor
-		data->img->data[(WIN_H - y) * WIN_W + r->x] = (data->mydata->texture[1].data[64 * floorTexY + floorTexX] >> 1) & 8355711;
-		data->img->data[(y) * WIN_W + r->x] = data->mydata->texture[0].data[64 * floorTexY + floorTexX];
-		}
+void			ft_test5(t_data *data, t_raycast *r)
+{
+	r->dist_wall = r->perp_walldist;
+	r->dist_player = 0.0;
+	if (r->draw_pos[1] < 0)
+		r->draw_pos[1] = WIN_H;
+	r->y = r->draw_pos[1];
+	while (++r->y < WIN_H)
+	{
+		r->current_dist = (double)WIN_H / (2.0 * (double)r->y - (double)WIN_H);
+		r->weight = (r->current_dist - r->dist_player) /
+		(r->dist_wall - r->dist_player);
+		r->current_floorx =
+		r->weight * r->floorx_wall + (1.0 - r->weight) * data->mydata->posx;
+		r->current_floory =
+		r->weight * r->floory_wall + (1.0 - r->weight) * data->mydata->posy;
+		r->floor_texx = (int)(r->current_floorx * (double)64) % 64;
+		r->floor_texy = (int)(r->current_floory * (double)64) % 64;
+		data->img->data[(WIN_H - r->y) * WIN_W + r->x] = (data->mydata->
+		texture[1].data[64 * r->floor_texy + r->floor_texx] >> 1) & 8355711;
+		data->img->data[(r->y) * WIN_W + r->x] =
+		data->mydata->texture[0].data[64 * r->floor_texy + r->floor_texx];
+	}
 }
 
 void			ft_raycast(t_data *data)
@@ -169,5 +162,6 @@ void			ft_raycast(t_data *data)
 			r.draw_pos[1] = WIN_H - 1;
 		ft_test3(data, &r);
 		ft_test4(data, &r);
+		ft_test5(data, &r);
 	}
 }

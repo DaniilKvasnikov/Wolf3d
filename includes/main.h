@@ -6,7 +6,7 @@
 /*   By: rrhaenys <rrhaenys@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/30 19:44:56 by rrhaenys          #+#    #+#             */
-/*   Updated: 2019/02/19 05:02:32 by rrhaenys         ###   ########.fr       */
+/*   Updated: 2019/02/19 06:29:53 by rrhaenys         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,16 @@ typedef struct	s_raycast
 	int		texx;
 	int		d;
 	int		texy;
+	double	floorx_wall;
+	double	floory_wall;
+	double	dist_wall;
+	double	dist_player;
+	double	current_dist;
+	double	weight;
+	double	current_floorx;
+	double	current_floory;
+	int		floor_texx;
+	int		floor_texy;
 }				t_raycast;
 
 typedef struct	s_texture

@@ -6,13 +6,13 @@
 /*   By: rrhaenys <rrhaenys@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/19 03:08:31 by rrhaenys          #+#    #+#             */
-/*   Updated: 2019/02/19 05:31:57 by rrhaenys         ###   ########.fr       */
+/*   Updated: 2019/02/19 06:19:40 by rrhaenys         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "main.h"
 
-void	line_fast(t_data *env, double *p1, double *p2, int color)
+void		line_fast(t_data *env, double *p1, double *p2, int color)
 {
 	int i;
 	int x[2];
@@ -39,7 +39,7 @@ void	line_fast(t_data *env, double *p1, double *p2, int color)
 		}
 }
 
-void			ft_draw_px(t_data *data, int x, int y, int color)
+void		ft_draw_px(t_data *data, int x, int y, int color)
 {
 	float z;
 
@@ -54,7 +54,7 @@ void			ft_draw_px(t_data *data, int x, int y, int color)
 		data->img->data[WIN_W - (y * WIN_W + 1) + x] = color;
 }
 
-void			line_vertical(t_data *data, int x, int *y, int color)
+void		line_vertical(t_data *data, int x, int *y, int color)
 {
 	int	ind_y;
 
@@ -63,7 +63,7 @@ void			line_vertical(t_data *data, int x, int *y, int color)
 		data->img->data[WIN_H - (ind_y * WIN_H + 1) + x] = color;
 }
 
-int				ft_draw(t_data *data)
+int			ft_draw(t_data *data)
 {
 	if (data->mydata->move != 0)
 		player_move(data, 0.03 * data->mydata->move * data->mydata->run);
