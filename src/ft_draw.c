@@ -132,27 +132,40 @@ void			testfun(t_data *data)
 		if (draw_pos[1] >= WIN_H)
 			draw_pos[1] = WIN_H - 1;
 		int color;
-/*		switch (data->mydata->map.map[mapY * data->mydata->map.size[0] + mapX])
-		{
-		case 1:
-			color = RGB_Red;
-			break;
-		case 2:
-			color = RGB_Green;
-			break;
-		case 3:
-			color = RGB_Blue;
-			break;
-		case 4:
-			color = 0x00ffff;
-			break;
-		default:
-			color = RGB_Yellow;
-			break;
-		}*/
 //		side += (stepX < 0) + (stepY < 0);
 		color = RGB_Red * (side == 1 && stepX >= 0) + RGB_Green * (side == 2 && stepY >= 0) + RGB_Blue * (side == 1 && stepX < 0) + RGB_Yellow * (side == 2 && stepY < 0);
-		line_vertical(data, x, draw_pos, color);
+
+		//texturing calculations
+		int texNum;
+		texNum = data->mydata->map.map[mapY * data->mydata->map.size[0] + mapX] - 1; //1 subtracted from it so that texture 0 can be used!
+		texNum = 1 * (side == 1 && stepX >= 0) + 2 * (side == 2 && stepY >= 0) + 3 * (side == 1 && stepX < 0) + 4 * (side == 2 && stepY < 0);
+		if (texNum > 4)
+			line_vertical(data, x, draw_pos, color);
+		else
+		{
+			//calculate value of wallX
+			double wallX; //where exactly the wall was hit
+			if (side == 1)
+				wallX = data->mydata->posY + perpWallDist * ray_diry;
+			else
+				wallX = data->mydata->posX + perpWallDist * ray_dirx;
+			wallX -= floor((wallX));
+			int texX = (int)(wallX * (double)(64));
+
+			int y;
+			for(y = draw_pos[0]; y < draw_pos[1]; y++)
+			{
+				int d = y * 256 - WIN_H * 128 + lineHeight * 128;	//256 and 128 factors to avoid floats
+				// TODO: avoid the division to speed this up
+				int texY = ((d * 64) / lineHeight) / 256;
+				color = data->mydata->texture[texNum].data[64 * texY + texX];
+				//make color darker for y-sides: R, G and B byte each divided through two with a "shift" and an "and"
+				if(side == 2)
+					color = (color >> 1) & 8355711;
+				data->img->data[y * WIN_W + x] = color;
+			}
+//		ft_printf("texX=%d\n", texX);
+		}
 	}
 }
 
@@ -160,11 +173,7 @@ int				ft_draw(t_data *data)
 {
 	ft_clearwin(data);
 	testfun(data);
-	int		x;
-	int		y;
-	for(x = 0; x < 64; x++)
-		for(y = 0; y < 64; y++)
-			data->img->data[y * WIN_W + x] = data->mydata->texture[0].data[x * 64 + y];
+//	data->img->data[y * WIN_W + x] = data->mydata->texture[0].data[x * 64 + y];
 	mlx_put_image_to_window(data->mlx_ptr, data->mlx_win,
 		data->img->img_ptr, 0, 0);
 	return (1);

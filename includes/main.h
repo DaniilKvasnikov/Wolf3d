@@ -6,7 +6,7 @@
 /*   By: rrhaenys <rrhaenys@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/30 19:44:56 by rrhaenys          #+#    #+#             */
-/*   Updated: 2019/02/19 02:01:35 by rrhaenys         ###   ########.fr       */
+/*   Updated: 2019/02/19 02:57:43 by rrhaenys         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ typedef struct	s_mydata
 	double		planeY;
 	int			**worldMap;
 	t_map		map;
-	t_texture	texture[1];
+	t_texture	texture[5];
 }				t_mydata;
 
 typedef struct	s_img
