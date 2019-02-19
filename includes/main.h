@@ -6,7 +6,7 @@
 /*   By: rrhaenys <rrhaenys@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/30 19:44:56 by rrhaenys          #+#    #+#             */
-/*   Updated: 2019/02/19 02:57:43 by rrhaenys         ###   ########.fr       */
+/*   Updated: 2019/02/19 05:02:32 by rrhaenys         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,16 +36,42 @@
 
 # define PRIN_RET(a,s) {if (a){ft_putendl(s); return (0);}}
 
-# define RGB_Red 0xff0000
-# define RGB_Green 0x00ff00
-# define RGB_Blue 0x87cefa
-# define RGB_White 0xffffff
-# define RGB_Yellow 0xffff33
-# define RGB_Black 0x000000
+# define RGB_RED 0xff0000
+# define RGB_GREEN 0x00ff00
+# define RGB_BLUE 0x87cefa
+# define RGB_WHITE 0xffffff
+# define RGB_YELLOW 0xffff33
+# define RGB_BLACK 0x000000
 
 # define BUF_SIZE 1024
 
 # define MAX_H 20
+
+typedef struct	s_raycast
+{
+	int		x;
+	int		draw_pos[2];
+	double	ray_dirx;
+	double	ray_diry;
+	int		mapx;
+	int		mapy;
+	double	side_distx;
+	double	side_disty;
+	int		stepx;
+	int		stepy;
+	double	delta_distx;
+	double	delta_disty;
+	double	perp_walldist;
+	int		side;
+	int		line_height;
+	int		color;
+	int		tex_num;
+	int		y;
+	double	wallx;
+	int		texx;
+	int		d;
+	int		texy;
+}				t_raycast;
 
 typedef struct	s_texture
 {
@@ -64,15 +90,18 @@ typedef struct	s_map
 
 typedef struct	s_mydata
 {
-	double		posX;
-	double		posY;
-	double		dirX;
-	double		dirY;
-	double		planeX;
-	double		planeY;
-	int			**worldMap;
+	double		posx;
+	double		posy;
+	double		dirx;
+	double		diry;
+	double		planex;
+	double		planey;
+	int			**world_map;
 	t_map		map;
 	t_texture	texture[5];
+	int			move;
+	int			turn;
+	int			run;
 }				t_mydata;
 
 typedef struct	s_img
@@ -96,6 +125,7 @@ int				ft_draw(t_data *data);
 void			ft_draw_px(t_data *data, int x, int y, int color);
 void			line_fast(t_data *env, double *p1, double *p2, int color);
 void			ft_clearwin(t_data *data);
+int				key_press(int key, t_data *data);
 int				key_release(int key, t_data *data);
 int				ft_close(t_data *data);
 void			ft_open_win(char *str);
@@ -114,6 +144,11 @@ void			ft_free(char **str);
 
 
 void			load_textures(t_data *data);
+
+void			ft_raycast(t_data *data);
+
+void			player_move(t_data *data, double move_speed);
+void			player_turn(t_data *data, double rot_speed);
 
 #define mapWidth 24
 #define mapHeight 24

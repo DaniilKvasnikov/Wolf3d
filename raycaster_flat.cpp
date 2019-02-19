@@ -161,7 +161,7 @@ int main(int argc, char *argv[])
       ColorRGB color;
       switch(worldMap[mapX][mapY])
       {
-        case 1:  color = RGB_Red;  break; //red
+        case 1:  color = RGB_RED;  break; //red
         case 2:  color = RGB_Green;  break; //green
         case 3:  color = RGB_Blue;   break; //blue
         case 4:  color = RGB_White;  break; //white
