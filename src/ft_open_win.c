@@ -6,7 +6,7 @@
 /*   By: rrhaenys <rrhaenys@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/05 07:03:09 by rrhaenys          #+#    #+#             */
-/*   Updated: 2019/02/19 05:02:53 by rrhaenys         ###   ########.fr       */
+/*   Updated: 2019/02/19 06:08:02 by rrhaenys         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ void		ft_open_win(char *str)
 		((data.img = (t_img *)malloc(sizeof(t_img))) == NULL) ||
 		((data.mydata = (t_mydata *)malloc(sizeof(t_mydata))) == NULL))
 		return ;
+	ft_start_game(&data, str);
 	mlx_do_key_autorepeaton(data.mlx_ptr);
 	mlx_loop_hook(data.mlx_ptr, ft_draw, &data);
 	mlx_hook(data.mlx_win, 2, 1L << 2, key_press, &data);
@@ -46,6 +47,5 @@ void		ft_open_win(char *str)
 	data.img->img_ptr = mlx_new_image(data.mlx_ptr, WIN_W, WIN_H);
 	data.img->data = (int *)mlx_get_data_addr(data.img->img_ptr,
 		&data.img->bpp, &data.img->size_l, &data.img->endian);
-	ft_start_game(&data, str);
 	mlx_loop(data.mlx_ptr);
 }
