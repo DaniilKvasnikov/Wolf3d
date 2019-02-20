@@ -6,7 +6,7 @@
 /*   By: rrhaenys <rrhaenys@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/19 03:25:16 by rrhaenys          #+#    #+#             */
-/*   Updated: 2019/02/20 14:31:13 by rrhaenys         ###   ########.fr       */
+/*   Updated: 2019/02/20 17:00:53 by rrhaenys         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,6 @@ int				key_release(int key, t_data *data)
 		data->mydata->turn -= (data->mydata->turn > 0);
 	else if (key == 257)
 		data->mydata->run -= (data->mydata->run == 3) * 2;
-//	ft_printf("key_release=%d\n", key);
 	return (1);
 }
 
@@ -73,6 +72,7 @@ int				key_press(int key, t_data *data)
 		data->mydata->turn += (data->mydata->turn <= 0);
 	else if (key == 257)
 		data->mydata->run += (data->mydata->run == 1) * 2;
-//	ft_printf("key_press=%d\n", key);
+	if (ft_is_flag(data, "-k"))
+		ft_printf("key_press=%d\n", key);
 	return (1);
 }

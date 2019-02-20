@@ -1,30 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_main.c                                          :+:      :+:    :+:   */
+/*   ft_is_flag.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rrhaenys <rrhaenys@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/02/06 00:37:39 by rrhaenys          #+#    #+#             */
-/*   Updated: 2019/02/20 17:09:53 by rrhaenys         ###   ########.fr       */
+/*   Created: 2019/02/20 17:03:15 by rrhaenys          #+#    #+#             */
+/*   Updated: 2019/02/20 17:03:17 by rrhaenys         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "main.h"
 
-int	main(int argc, char **argv)
+int			ft_is_flag(t_data *data, char *str)
 {
-	--argc;
-	++argv;
-	if (argc >= 1)
-		ft_open_win(argv[0], argc, argv);
-	else
-		ft_printf("%s\n%s\n\t%s\n\t%s\n\t%s\n\t%s\n",
-		"./wolf3d [file_name] [flags]",
-		"flags:",
-		"-f туман войны",
-		"-m вывод карты",
-		"-c текстуры с файла",
-		"-k вывод кода клавиши");
+	int	index;
+
+	index = -1;
+	while (++index < (data->mydata->argc))
+		if (ft_strcmp(data->mydata->argv[index], str) == 0)
+			return (1);
 	return (0);
 }

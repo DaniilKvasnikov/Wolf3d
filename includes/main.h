@@ -6,7 +6,7 @@
 /*   By: rrhaenys <rrhaenys@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/30 19:44:56 by rrhaenys          #+#    #+#             */
-/*   Updated: 2019/02/20 16:40:25 by rrhaenys         ###   ########.fr       */
+/*   Updated: 2019/02/20 17:13:04 by rrhaenys         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,6 +137,7 @@ typedef struct	s_data
 int				ft_draw(t_data *data);
 void			ft_draw_px(t_data *data, int x, int y, int color);
 void			line_fast(t_data *env, double *p1, double *p2, int color);
+void			ft_linefast_int(t_data *data, int *p1, int *p2, int color);
 void			ft_draw_square(t_data *data, int *pos, int rad, int color);
 void			ft_clearwin(t_data *data);
 int				key_press(int key, t_data *data);
@@ -156,7 +157,6 @@ int				*ft_get_size(char *str);
 void			ft_free_ptr(void *data);
 void			ft_free(char **str);
 
-
 void			load_textures(t_data *data);
 
 void			ft_raycast(t_data *data);
@@ -166,7 +166,14 @@ void			player_turn(t_data *data, double rot_speed);
 
 int				ft_is_flag(t_data *data, char *str);
 
-#define mapWidth 24
-#define mapHeight 24
+void			ft_raycast_block1(t_data *data, t_raycast *r);
+void			ft_raycast_block2(t_data *data, t_raycast *r);
+void			ft_raycast_block3(t_data *data, t_raycast *r);
+void			ft_raycast_block4(t_raycast *r);
+void			ft_raycast_block5(t_data *data, t_raycast *r);
+
+void			ft_draw_map(t_data *data);
+void			ft_map_check(t_data *data);
+void			ft_map_clear(t_data *data);
 
 #endif
