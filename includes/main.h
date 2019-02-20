@@ -6,7 +6,7 @@
 /*   By: rrhaenys <rrhaenys@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/30 19:44:56 by rrhaenys          #+#    #+#             */
-/*   Updated: 2019/02/20 17:24:46 by rrhaenys         ###   ########.fr       */
+/*   Updated: 2019/02/20 18:51:31 by rrhaenys         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,8 @@
 # include <mlx.h>
 # include <math.h>
 
-# define WIN_W 1300
 # define WIN_H 1300
+# define WIN_W (WIN_H * 16 / 10)
 # define WIN_S (WIN_W * WIN_H)
 # define X_P 0
 # define Y_P 1

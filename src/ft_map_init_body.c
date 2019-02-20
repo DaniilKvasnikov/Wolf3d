@@ -6,7 +6,7 @@
 /*   By: rrhaenys <rrhaenys@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/16 21:16:54 by rrhaenys          #+#    #+#             */
-/*   Updated: 2019/02/19 06:04:36 by rrhaenys         ###   ########.fr       */
+/*   Updated: 2019/02/20 18:20:18 by rrhaenys         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,17 +26,20 @@ int			ft_check_str_int(char **str)
 {
 	int		index;
 	int		par;
+	int		res;
+	char	*str_;
 
 	index = -1;
+	res = 0;
 	while (str[++index] != NULL)
 	{
 		par = ft_atoi(str[index]);
-		if (par == 0)
-			if (ft_strlen(str[index]) != 1 || str[index][0] != '0')
-				return (1);
+		str_ = ft_itoa(par);
+		res = (ft_strcmp(str[index], str_) != 0);
+		free(str_);
 		par = abs(par);
 	}
-	return (0);
+	return (res);
 }
 
 int			ft_check_str(char *str)

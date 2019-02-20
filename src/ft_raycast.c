@@ -6,7 +6,7 @@
 /*   By: rrhaenys <rrhaenys@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/19 04:03:14 by rrhaenys          #+#    #+#             */
-/*   Updated: 2019/02/20 16:57:56 by rrhaenys         ###   ########.fr       */
+/*   Updated: 2019/02/20 18:12:45 by rrhaenys         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,7 @@
 void			ft_map_check(t_data *data)
 {
 	if (data->mydata->map.map == NULL)
-	{
-		ft_putendl_fd("Map error", 2);
 		exit(1);
-	}
 }
 
 void			ft_raycast(t_data *data)

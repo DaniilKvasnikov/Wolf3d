@@ -6,7 +6,7 @@
 /*   By: rrhaenys <rrhaenys@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/19 03:08:31 by rrhaenys          #+#    #+#             */
-/*   Updated: 2019/02/20 17:04:54 by rrhaenys         ###   ########.fr       */
+/*   Updated: 2019/02/20 19:23:03 by rrhaenys         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,19 +41,7 @@ void		line_fast(t_data *env, double *p1, double *p2, int color)
 
 void		ft_draw_px(t_data *data, int x, int y, int color)
 {
-	float z;
-
 	data->img->data[y * WIN_W + x] = color;
-	return ;
-	if (data->img->size_l <= 100)
-		return ;
-	x = (int)(x);
-	y = (int)(WIN_H - y - 1);
-	z = x + (y * WIN_W);
-	if (z >= 0 && z < WIN_S &&
-		x >= 0 && x <= WIN_W &&
-		y >= 0)
-		data->img->data[WIN_W - (y * WIN_W + 1) + x] = color;
 }
 
 void		line_vertical(t_data *data, int x, int *y, int color)
@@ -82,7 +70,7 @@ int			ft_draw(t_data *data)
 	if (data->mydata->move != 0)
 		player_move(data, 0.03 * data->mydata->move * data->mydata->run);
 	if (data->mydata->turn != 0)
-		player_turn(data, 0.02 * data->mydata->turn);
+		player_turn(data, 0.02 * data->mydata->turn * sqrt(data->mydata->run));
 	ft_clearwin(data);
 	ft_map_clear(data);
 	ft_raycast(data);
