@@ -6,7 +6,7 @@
 /*   By: rrhaenys <rrhaenys@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/20 16:55:45 by rrhaenys          #+#    #+#             */
-/*   Updated: 2019/02/20 19:18:17 by rrhaenys         ###   ########.fr       */
+/*   Updated: 2019/02/20 19:26:08 by rrhaenys         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,12 @@
 /*
 **	ray_dir		вектор взгляда через точку экрана
 **	map			представляют текущий квадрат карты, на которой находится луч
-**	side_dist	расстояние, которое луч должен пройти от своего начального положения до первой стороны
-**	delta_dist	растояние, которое луч должен пройти, чтобы пройти от 1 стороны до следующей стороны
-**	формула "sqrt(1 + (rayDirY * rayDirY) / (rayDirX * rayDirX))" может быть сокращена до abs(1 / rayDirX)
+**	side_dist	расстояние, которое луч должен пройти
+**				от своего начального положения до первой стороны
+**	delta_dist	растояние, которое луч должен пройти, чтобы пройти от 1 стороны
+**				до следующей стороны
+**	формула "sqrt(1 + (rayDirY * rayDirY) / (rayDirX * rayDirX))"
+**	может быть сокращена до abs(1 / rayDirX)
 */
 
 void			ft_raycast_block1(t_data *data, t_raycast *r)
@@ -141,7 +144,7 @@ void			ft_raycast_block5(t_data *data, t_raycast *r)
 		r->floor_texx = (int)(r->current_floorx * (double)64) % 64;
 		r->floor_texy = (int)(r->current_floory * (double)64) % 64;
 		data->img->data[(WIN_H - r->y) * WIN_W + r->x] =
-		(data->mydata->texture[1].data[64 * r->floor_texy + r->floor_texx] >> 1);
+		(data->mydata->texture[1].data[64 * r->floor_texy + r->floor_texx] / 2);
 		data->img->data[(r->y) * WIN_W + r->x] =
 		data->mydata->texture[0].data[64 * r->floor_texy + r->floor_texx];
 	}
