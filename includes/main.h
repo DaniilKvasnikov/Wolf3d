@@ -6,7 +6,7 @@
 /*   By: rrhaenys <rrhaenys@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/30 19:44:56 by rrhaenys          #+#    #+#             */
-/*   Updated: 2019/02/20 17:13:04 by rrhaenys         ###   ########.fr       */
+/*   Updated: 2019/02/20 17:24:46 by rrhaenys         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,7 @@
 # define WIN_S (WIN_W * WIN_H)
 # define X_P 0
 # define Y_P 1
-# define BLOCK_1(a, b, c, d) {a -= b; c += d;}
-# define BLOCK_2(a, b, c, d, e) {if ((a += e) >= b) BLOCK_1(a, b, c, d);}
-# define SGN(x) ((x < 0) ? -1 : ((x > 0) ? 1 : 0))
+
 # define B_SPACE 49
 # define B_ESC 53
 # define B_W 13
@@ -35,6 +33,9 @@
 # define B_NUM_6 88
 
 # define PRIN_RET(a,s) {if (a){ft_putendl(s); return (0);}}
+# define BLOCK_1(a, b, c, d) {a -= b; c += d;}
+# define BLOCK_2(a, b, c, d, e) {if ((a += e) >= b) BLOCK_1(a, b, c, d);}
+# define SGN(x) ((x < 0) ? -1 : ((x > 0) ? 1 : 0))
 
 # define RGB_RED 0xff0000
 # define RGB_GREEN 0x00ff00
@@ -44,8 +45,6 @@
 # define RGB_BLACK 0x000000
 
 # define BUF_SIZE 1024
-
-# define MAX_H 20
 
 typedef struct	s_raycast
 {
@@ -134,20 +133,19 @@ typedef struct	s_data
 	t_mydata	*mydata;
 }				t_data;
 
+void			ft_open_win(char *str, int argc, char **argv);
+
 int				ft_draw(t_data *data);
 void			ft_draw_px(t_data *data, int x, int y, int color);
 void			line_fast(t_data *env, double *p1, double *p2, int color);
 void			ft_linefast_int(t_data *data, int *p1, int *p2, int color);
 void			ft_draw_square(t_data *data, int *pos, int rad, int color);
 void			ft_clearwin(t_data *data);
+
 int				key_press(int key, t_data *data);
 int				key_release(int key, t_data *data);
+
 int				ft_close(t_data *data);
-void			ft_open_win(char *str, int argc, char **argv);
-void			ft_create_payer(t_data *data);
-void			ft_draw_player(t_data *data);
-void			ft_turn_player(t_data *data, int turn);
-void			ft_player_step_forward(t_data *data, int turn);
 
 void			ft_map_init(t_data *data, char *filename);
 char			*ft_get_file_str(char *filename);

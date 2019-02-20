@@ -6,7 +6,7 @@
 #    By: rrhaenys <rrhaenys@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/01/30 19:01:08 by rrhaenys          #+#    #+#              #
-#    Updated: 2019/02/06 00:38:59 by rrhaenys         ###   ########.fr        #
+#    Updated: 2019/02/20 17:23:15 by rrhaenys         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,7 +27,7 @@ $(LIB):
 	make -C libft
 
 $(NAME): $(LIB) $(OBJ)
-	$(COMMAND) -g -o $(NAME) $(INCLUDE) $(OBJ) $(LIB) $(MLX)
+	$(COMMAND) $(FLAGS) -g -o $(NAME) $(INCLUDE) $(OBJ) $(LIB) $(MLX)
 
 
 .c.o:
