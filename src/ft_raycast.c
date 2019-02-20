@@ -6,7 +6,7 @@
 /*   By: rrhaenys <rrhaenys@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/19 04:03:14 by rrhaenys          #+#    #+#             */
-/*   Updated: 2019/02/19 06:38:41 by rrhaenys         ###   ########.fr       */
+/*   Updated: 2019/02/20 14:11:50 by rrhaenys         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,8 @@ void			ft_test3(t_data *data, t_raycast *r)
 	r->tex_num = 1 * (r->side == 1 && r->stepx >= 0) + 2 * (r->side == 2 &&
 	r->stepy >= 0) + 3 * (r->side == 1 && r->stepx < 0) + 4 * (r->side == 2 &&
 	r->stepy < 0);
+	if (r->mapy * data->mydata->map.size[0] + r->mapx < 0)
+		r->tex_num = 1;
 	if (r->tex_num <= 4)
 	{
 		if (r->side == 1)
@@ -92,7 +94,7 @@ void			ft_test3(t_data *data, t_raycast *r)
 	}
 }
 
-void			ft_test4(t_data *data, t_raycast *r)
+void			ft_test4(t_raycast *r)
 {
 	if (r->side == 1 && r->ray_dirx > 0)
 	{
@@ -161,7 +163,7 @@ void			ft_raycast(t_data *data)
 		if (r.draw_pos[1] >= WIN_H)
 			r.draw_pos[1] = WIN_H - 1;
 		ft_test3(data, &r);
-		ft_test4(data, &r);
+		ft_test4(&r);
 		ft_test5(data, &r);
 	}
 }
