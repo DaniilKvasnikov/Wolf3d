@@ -6,7 +6,7 @@
 /*   By: rrhaenys <rrhaenys@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/19 04:03:14 by rrhaenys          #+#    #+#             */
-/*   Updated: 2019/02/20 16:02:51 by rrhaenys         ###   ########.fr       */
+/*   Updated: 2019/02/20 16:46:55 by rrhaenys         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,16 +63,15 @@ void			ft_test2(t_data *data, t_raycast *r)
 	r->draw_pos[0] = -r->line_height / 2 + WIN_H / 2;
 }
 
-#include "stdio.h"
-
 void			ft_test3(t_data *data, t_raycast *r)
 {
 	data->mydata->map.flags[r->mapy * data->mydata->map.size[0] + r->mapx] = 1;
 	r->tex_num = data->mydata->map.map[
 		r->mapy * data->mydata->map.size[0] + r->mapx] - 1;
-	r->tex_num = 1 * (r->side == 1 && r->stepx >= 0) + 2 * (r->side == 2 &&
-	r->stepy >= 0) + 3 * (r->side == 1 && r->stepx < 0) + 4 * (r->side == 2 &&
-	r->stepy < 0);
+	if (!ft_is_flag(data, "-c"))
+		r->tex_num = 1 * (r->side == 1 && r->stepx >= 0) + 2 * (r->side == 2 &&
+		r->stepy >= 0) + 3 * (r->side == 1 && r->stepx < 0) + 4 * (r->side == 2
+		&& r->stepy < 0);
 	if (r->mapy * data->mydata->map.size[0] + r->mapx < 0)
 		r->tex_num = 1;
 	if (r->tex_num <= 4)
@@ -92,8 +91,7 @@ void			ft_test3(t_data *data, t_raycast *r)
 			r->texx];
 			if (r->side == 2)
 				r->color = (r->color >> 1) & 8355711;
-			data->img->data[(r->y) * WIN_W + r->x] = r->color / (1 +
-			(r->x < 300 || r->x > (WIN_W - 300)));
+			data->img->data[(r->y) * WIN_W + r->x] = r->color;
 		}
 	}
 }
@@ -140,11 +138,10 @@ void			ft_test5(t_data *data, t_raycast *r)
 		r->weight * r->floory_wall + (1.0 - r->weight) * data->mydata->posy;
 		r->floor_texx = (int)(r->current_floorx * (double)64) % 64;
 		r->floor_texy = (int)(r->current_floory * (double)64) % 64;
-		data->img->data[(WIN_H - r->y) * WIN_W + r->x] = ((data->mydata->
-		texture[1].data[64 * r->floor_texy + r->floor_texx] >> 1) & 8355711);
+		data->img->data[(WIN_H - r->y) * WIN_W + r->x] = (data->mydata->
+		texture[1].data[64 * r->floor_texy + r->floor_texx] >> 1) & 8355711;
 		data->img->data[(r->y) * WIN_W + r->x] =
-		data->mydata->texture[0].data[64 * r->floor_texy + r->floor_texx] / (1 +
-			(r->x < 300 || r->x > (WIN_W - 300)));
+		data->mydata->texture[0].data[64 * r->floor_texy + r->floor_texx];
 	}
 }
 

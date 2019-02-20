@@ -6,13 +6,13 @@
 /*   By: rrhaenys <rrhaenys@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/05 07:03:09 by rrhaenys          #+#    #+#             */
-/*   Updated: 2019/02/19 06:08:02 by rrhaenys         ###   ########.fr       */
+/*   Updated: 2019/02/20 16:32:49 by rrhaenys         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "main.h"
 
-void		ft_start_game(t_data *data, char *str)
+void		ft_start_game(t_data *data, char *str, int argc, char **argv)
 {
 	data->mydata = (t_mydata *)malloc(sizeof(t_mydata));
 	data->mydata->posx = 2;
@@ -24,11 +24,13 @@ void		ft_start_game(t_data *data, char *str)
 	data->mydata->move = 0;
 	data->mydata->turn = 0;
 	data->mydata->run = 1;
+	data->mydata->argc = argc;
+	data->mydata->argv = argv;
 	ft_map_init(data, str);
 	load_textures(data);
 }
 
-void		ft_open_win(char *str)
+void		ft_open_win(char *str, int argc, char **argv)
 {
 	t_data	data;
 
@@ -38,7 +40,7 @@ void		ft_open_win(char *str)
 		((data.img = (t_img *)malloc(sizeof(t_img))) == NULL) ||
 		((data.mydata = (t_mydata *)malloc(sizeof(t_mydata))) == NULL))
 		return ;
-	ft_start_game(&data, str);
+	ft_start_game(&data, str, argc, argv);
 	mlx_do_key_autorepeaton(data.mlx_ptr);
 	mlx_loop_hook(data.mlx_ptr, ft_draw, &data);
 	mlx_hook(data.mlx_win, 2, 1L << 2, key_press, &data);

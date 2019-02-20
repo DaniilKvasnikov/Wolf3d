@@ -6,7 +6,7 @@
 /*   By: rrhaenys <rrhaenys@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/30 19:44:56 by rrhaenys          #+#    #+#             */
-/*   Updated: 2019/02/20 15:32:04 by rrhaenys         ###   ########.fr       */
+/*   Updated: 2019/02/20 16:40:25 by rrhaenys         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,6 +113,8 @@ typedef struct	s_mydata
 	int			move;
 	int			turn;
 	int			run;
+	char		**argv;
+	int			argc;
 }				t_mydata;
 
 typedef struct	s_img
@@ -140,7 +142,7 @@ void			ft_clearwin(t_data *data);
 int				key_press(int key, t_data *data);
 int				key_release(int key, t_data *data);
 int				ft_close(t_data *data);
-void			ft_open_win(char *str);
+void			ft_open_win(char *str, int argc, char **argv);
 void			ft_create_payer(t_data *data);
 void			ft_draw_player(t_data *data);
 void			ft_turn_player(t_data *data, int turn);
@@ -161,6 +163,8 @@ void			ft_raycast(t_data *data);
 
 void			player_move(t_data *data, double move_speed);
 void			player_turn(t_data *data, double rot_speed);
+
+int				ft_is_flag(t_data *data, char *str);
 
 #define mapWidth 24
 #define mapHeight 24

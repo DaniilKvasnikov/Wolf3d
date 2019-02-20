@@ -6,7 +6,7 @@
 /*   By: rrhaenys <rrhaenys@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/19 03:08:31 by rrhaenys          #+#    #+#             */
-/*   Updated: 2019/02/20 15:36:44 by rrhaenys         ###   ########.fr       */
+/*   Updated: 2019/02/20 16:44:03 by rrhaenys         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,8 +90,9 @@ void		ft_map(t_data *data)
 		{
 			if (data->mydata->map.map[
 					pos[0] + pos[1] * data->mydata->map.size[0]] != 0 &&
-				data->mydata->map.flags[
-					pos[0] + pos[1] * data->mydata->map.size[0]] == 1)
+				(data->mydata->map.flags[
+					pos[0] + pos[1] * data->mydata->map.size[0]] == 1 ||
+					!ft_is_flag(data, "-f")))
 			{
 				point[0] = (data->mydata->map.size[0] - 1 - pos[0])
 				* 5 + 50;
@@ -119,6 +120,17 @@ void		ft_map_clear(t_data *data)
 		data->mydata->map.flags[index] = 0;
 }
 
+int			ft_is_flag(t_data *data, char *str)
+{
+	int	index;
+
+	index = -1;
+	while (++index < (data->mydata->argc))
+		if (ft_strcmp(data->mydata->argv[index], str) == 0)
+			return (1);
+	return (0);
+}
+
 int			ft_draw(t_data *data)
 {
 	if (data->mydata->move != 0)
@@ -128,7 +140,8 @@ int			ft_draw(t_data *data)
 	ft_clearwin(data);
 	ft_map_clear(data);
 	ft_raycast(data);
-	ft_map(data);
+	if (ft_is_flag(data, "-m") || ft_is_flag(data, "-f"))
+		ft_map(data);
 	mlx_put_image_to_window(data->mlx_ptr, data->mlx_win,
 		data->img->img_ptr, 0, 0);
 	return (1);
