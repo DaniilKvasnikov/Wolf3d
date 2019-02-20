@@ -6,7 +6,7 @@
 /*   By: rrhaenys <rrhaenys@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/13 07:41:55 by rrhaenys          #+#    #+#             */
-/*   Updated: 2019/02/18 22:20:49 by rrhaenys         ###   ########.fr       */
+/*   Updated: 2019/02/20 15:36:19 by rrhaenys         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,13 +22,13 @@ void	ft_map_init(t_data *data, char *filename)
 	{
 		if ((data->mydata->map.size = ft_get_size(str)) != NULL)
 		{
-			if ((data->mydata->map.map =
-					(int *)malloc(
-						sizeof(int) *
+			if ((data->mydata->map.map = (int *)malloc(sizeof(int) *
 						(data->mydata->map.size[0]) *
 						(data->mydata->map.size[1])))
 				!= NULL)
 			{
+				data->mydata->map.flags = (int *)malloc(sizeof(int) *
+				(data->mydata->map.size[0]) * (data->mydata->map.size[1]));
 				ft_create_map(data, str);
 			}
 		}

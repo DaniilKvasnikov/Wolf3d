@@ -6,7 +6,7 @@
 /*   By: rrhaenys <rrhaenys@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/19 03:08:31 by rrhaenys          #+#    #+#             */
-/*   Updated: 2019/02/20 15:22:11 by rrhaenys         ###   ########.fr       */
+/*   Updated: 2019/02/20 15:36:44 by rrhaenys         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,28 +65,6 @@ void		line_vertical(t_data *data, int x, int *y, int color)
 		data->img->data[WIN_H - (ind_y * WIN_H + 1) + x] = color;
 }
 
-void		ft_regenerator(t_data *data)
-{
-	double	player_p[2];
-	double	dir[2];
-	int		cube[2];
-
-	player_p[0] = data->mydata->posx;
-	player_p[1] = data->mydata->posy;
-	dir[0] = data->mydata->dirx;
-	dir[1] = data->mydata->diry;
-	cube[0] = data->mydata->posx - data->mydata->dirx;
-	cube[1] = data->mydata->posy - data->mydata->diry;
-	if (cube[0] > 0 && cube[1] > 0 &&
-		cube[0] < data->mydata->map.size[0] &&
-		cube[1] < data->mydata->map.size[1])
-	{
-		ft_printf("%d %d\n", cube[1], cube[0]);
-		data->mydata->map.map[data->mydata->map.size[0] * cube[1] + cube[0]] = rand() % 2;
-	}
-//	printf("x=%f y=%f dx=%f dy=%f\n", player_p[0], player_p[1], dir[0], dir[1]);
-}
-
 void		ft_linefast_int(t_data *data, int *p1, int *p2, int color)
 {
 	double	f1[2];
@@ -111,12 +89,15 @@ void		ft_map(t_data *data)
 		while (++pos[1] < data->mydata->map.size[1])
 		{
 			if (data->mydata->map.map[
-				pos[0] + pos[1] * data->mydata->map.size[0]] != 0)
-				{
-					point[0] = (data->mydata->map.size[0] - 1 - pos[0]) * 5 + 50;
-					point[1] = pos[1] * 5 + 50;
-					ft_draw_square(data, point, 2, 0xffffff);
-				}
+					pos[0] + pos[1] * data->mydata->map.size[0]] != 0 &&
+				data->mydata->map.flags[
+					pos[0] + pos[1] * data->mydata->map.size[0]] == 1)
+			{
+				point[0] = (data->mydata->map.size[0] - 1 - pos[0])
+				* 5 + 50;
+				point[1] = pos[1] * 5 + 50;
+				ft_draw_square(data, point, 2, 0xffffff);
+			}
 		}
 	}
 	point[0] = (data->mydata->map.size[0] - data->mydata->posx - 0.5) * 5 + 50;
@@ -127,14 +108,25 @@ void		ft_map(t_data *data)
 	ft_linefast_int(data, point, pos, 0xff0000);
 }
 
+void		ft_map_clear(t_data *data)
+{
+	int	index;
+	int	size;
+
+	index = -1;
+	size = data->mydata->map.size[0] * data->mydata->map.size[1];
+	while (++index < size)
+		data->mydata->map.flags[index] = 0;
+}
+
 int			ft_draw(t_data *data)
 {
-//	ft_regenerator(data);
 	if (data->mydata->move != 0)
 		player_move(data, 0.03 * data->mydata->move * data->mydata->run);
 	if (data->mydata->turn != 0)
 		player_turn(data, 0.02 * data->mydata->turn);
 	ft_clearwin(data);
+	ft_map_clear(data);
 	ft_raycast(data);
 	ft_map(data);
 	mlx_put_image_to_window(data->mlx_ptr, data->mlx_win,

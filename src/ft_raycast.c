@@ -6,7 +6,7 @@
 /*   By: rrhaenys <rrhaenys@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/19 04:03:14 by rrhaenys          #+#    #+#             */
-/*   Updated: 2019/02/20 14:11:50 by rrhaenys         ###   ########.fr       */
+/*   Updated: 2019/02/20 15:35:36 by rrhaenys         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,7 @@ void			ft_test2(t_data *data, t_raycast *r)
 
 void			ft_test3(t_data *data, t_raycast *r)
 {
+	data->mydata->map.flags[r->mapy * data->mydata->map.size[0] + r->mapx] = 1;
 	r->tex_num = data->mydata->map.map[
 		r->mapy * data->mydata->map.size[0] + r->mapx] - 1;
 	r->tex_num = 1 * (r->side == 1 && r->stepx >= 0) + 2 * (r->side == 2 &&

@@ -6,7 +6,7 @@
 /*   By: rrhaenys <rrhaenys@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/30 19:44:56 by rrhaenys          #+#    #+#             */
-/*   Updated: 2019/02/20 14:38:50 by rrhaenys         ###   ########.fr       */
+/*   Updated: 2019/02/20 15:32:04 by rrhaenys         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,6 +95,7 @@ typedef struct	s_texture
 typedef struct	s_map
 {
 	int			*map;
+	int			*flags;
 	int			*size;
 }				t_map;
 
