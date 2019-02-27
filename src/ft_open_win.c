@@ -6,7 +6,7 @@
 /*   By: rrhaenys <rrhaenys@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/05 07:03:09 by rrhaenys          #+#    #+#             */
-/*   Updated: 2019/02/27 12:56:12 by rrhaenys         ###   ########.fr       */
+/*   Updated: 2019/02/27 14:10:36 by rrhaenys         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,20 +17,28 @@ int
 	(t_data *data)
 {
 	int	index;
-	if (data->mydata->map.size[0] < 3 ||
-	data->mydata->map.size[1] < 3)
+	int	x;
+	int	y;
+
+	x = data->mydata->map.size[0];
+	y = data->mydata->map.size[1];
+	if (x < 3 || y < 3)
 		return (1);
-	if ((data->mydata->posx < 1) || (data->mydata->posy < 1) ||
-	(data->mydata->posx > (data->mydata->map.size[0] - 2)) ||
-	(data->mydata->posy > (data->mydata->map.size[1] - 2)))
+	if ((data->mydata->posx <= 1.0) || (data->mydata->posy <= 1.0) ||
+	(data->mydata->posx >= (x - 1)) || (data->mydata->posy >= (y - 1)))
 		return (1);
 	if (data->mydata->map.map[(int)
-	(data->mydata->posx + data->mydata->posy * data->mydata->map.size[0])] != 0)
+	(data->mydata->posx + data->mydata->posy * y)] != 0)
 		return (1);
 	index = -1;
-	while (++index < data->mydata->map.size[0])
+	while (++index < y)
 		if ((data->mydata->map.map[index] == 0) ||
-		(data->mydata->map.map[index + ((data->mydata->map.size[1] - 1) * data->mydata->map.size[0])] == 0))
+		(data->mydata->map.map[(int)(index + (x - 1) * y)] == 0))
+			return (1);
+	index = -1;
+	while (++index < x)
+		if ((data->mydata->map.map[0 + index * y] == 0) ||
+			(data->mydata->map.map[x - 1 + index * y] == 0))
 			return (1);
 	return (0);
 }
@@ -38,8 +46,8 @@ int
 void		ft_start_game(t_data *data, char *str, int argc, char **argv)
 {
 	data->mydata = (t_mydata *)malloc(sizeof(t_mydata));
-	data->mydata->posx = 1;
-	data->mydata->posy = 1;
+	data->mydata->posx = 1.2;
+	data->mydata->posy = 1.2;
 	data->mydata->dirx = 1;
 	data->mydata->diry = 0;
 	data->mydata->planex = 0;
