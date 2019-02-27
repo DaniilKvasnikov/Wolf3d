@@ -6,7 +6,7 @@
 /*   By: rrhaenys <rrhaenys@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/20 16:55:45 by rrhaenys          #+#    #+#             */
-/*   Updated: 2019/02/20 19:26:08 by rrhaenys         ###   ########.fr       */
+/*   Updated: 2019/02/27 14:15:29 by rrhaenys         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,23 +81,21 @@ void			ft_raycast_block2(t_data *data, t_raycast *r)
 
 void			ft_raycast_block3(t_data *data, t_raycast *r)
 {
-	if (r->tex_num <= 4)
+	r->tex_num = r->tex_num % 5;
+	if (r->side == 1)
+		r->wallx = data->mydata->posy + r->perp_walldist * r->ray_diry;
+	else
+		r->wallx = data->mydata->posx + r->perp_walldist * r->ray_dirx;
+	r->wallx -= floor((r->wallx));
+	r->texx = (int)(r->wallx * (double)(64));
+	r->y = r->draw_pos[0] - 1;
+	while (++r->y < r->draw_pos[1])
 	{
-		if (r->side == 1)
-			r->wallx = data->mydata->posy + r->perp_walldist * r->ray_diry;
-		else
-			r->wallx = data->mydata->posx + r->perp_walldist * r->ray_dirx;
-		r->wallx -= floor((r->wallx));
-		r->texx = (int)(r->wallx * (double)(64));
-		r->y = r->draw_pos[0] - 1;
-		while (++r->y < r->draw_pos[1])
-		{
-			r->d = r->y * 256 - WIN_H * 128 + r->line_height * 128;
-			r->texy = ((r->d * 64) / r->line_height) / 256;
-			r->color = data->mydata->texture[r->tex_num].data[64 * r->texy +
-			r->texx];
-			data->img->data[(r->y) * WIN_W + r->x] = r->color;
-		}
+		r->d = r->y * 256 - WIN_H * 128 + r->line_height * 128;
+		r->texy = ((r->d * 64) / r->line_height) / 256;
+		r->color = data->mydata->texture[r->tex_num].data[64 * r->texy +
+		r->texx];
+		data->img->data[(r->y) * WIN_W + r->x] = r->color;
 	}
 }
 

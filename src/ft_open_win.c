@@ -6,7 +6,7 @@
 /*   By: rrhaenys <rrhaenys@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/05 07:03:09 by rrhaenys          #+#    #+#             */
-/*   Updated: 2019/02/27 14:10:36 by rrhaenys         ###   ########.fr       */
+/*   Updated: 2019/02/27 14:47:46 by rrhaenys         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,9 @@ int
 	in_map
 	(t_data *data)
 {
-	int	index;
 	int	x;
 	int	y;
+	int	index;
 
 	x = data->mydata->map.size[0];
 	y = data->mydata->map.size[1];
@@ -38,7 +38,7 @@ int
 	index = -1;
 	while (++index < x)
 		if ((data->mydata->map.map[0 + index * y] == 0) ||
-			(data->mydata->map.map[x - 1 + index * y] == 0))
+			(data->mydata->map.map[(y - 1) + index * y] == 0))
 			return (1);
 	return (0);
 }
@@ -59,7 +59,7 @@ void		ft_start_game(t_data *data, char *str, int argc, char **argv)
 	data->mydata->argv = argv;
 	ft_map_init(data, str);
 	load_textures(data);
-	if (in_map(data))
+	if (data->mydata->map.map == NULL || in_map(data))
 	{
 		ft_putendl_fd("Map error", 2);
 		ft_close(data);
