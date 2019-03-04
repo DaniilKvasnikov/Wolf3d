@@ -6,7 +6,7 @@
 /*   By: rrhaenys <rrhaenys@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/20 17:04:07 by rrhaenys          #+#    #+#             */
-/*   Updated: 2019/03/04 13:07:33 by rrhaenys         ###   ########.fr       */
+/*   Updated: 2019/03/04 13:28:35 by rrhaenys         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,10 +33,10 @@ void		ft_draw_map(t_data *data)
 				ft_draw_square(data, point, 2, 0xffffff);
 			}
 	}
-	point[0] = (data->mydata->map.size[0] - data->mydata->posx - 0.5) * 5 + 50;
+	point[0] = (data->mydata->posx - 0.5) * 5 + 50;
 	point[1] = (data->mydata->posy - 0.5) * 5 + 50;
 	ft_draw_square(data, point, 2, 0x00ff00);
-	pos[0] = point[0] - data->mydata->dirx * 5;
+	pos[0] = point[0] + data->mydata->dirx * 5;
 	pos[1] = point[1] + data->mydata->diry * 5;
 	ft_linefast_int(data, point, pos, 0xff0000);
 }

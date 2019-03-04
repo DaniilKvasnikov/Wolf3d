@@ -6,7 +6,7 @@
 /*   By: rrhaenys <rrhaenys@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/19 03:08:31 by rrhaenys          #+#    #+#             */
-/*   Updated: 2019/03/04 13:16:44 by rrhaenys         ###   ########.fr       */
+/*   Updated: 2019/03/04 13:27:08 by rrhaenys         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ int			ft_draw(t_data *data)
 	if (data->mydata->move != 0)
 		player_move(data, 0.03 * data->mydata->move * data->mydata->run);
 	if (data->mydata->turn != 0)
-		player_turn(data, 0.02 * data->mydata->turn * sqrt(data->mydata->run));
+		player_turn(data, -0.02 * data->mydata->turn * sqrt(data->mydata->run));
 	ft_clearwin(data);
 	ft_map_clear(data);
 	ft_raycast(data);

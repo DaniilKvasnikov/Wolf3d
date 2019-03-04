@@ -6,7 +6,7 @@
 /*   By: rrhaenys <rrhaenys@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/20 16:55:45 by rrhaenys          #+#    #+#             */
-/*   Updated: 2019/03/04 13:25:17 by rrhaenys         ###   ########.fr       */
+/*   Updated: 2019/03/04 13:25:52 by rrhaenys         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,7 @@ void			ft_raycast_block3(t_data *data, t_raycast *r)
 		r->texy = ((r->d * 64) / r->line_height) / 256;
 		r->color = data->mydata->texture[r->tex_num].data[64 * r->texy +
 		r->texx];
-		data->img->data[(r->y) * WIN_W + r->x] = r->color;
+		data->img->data[(r->y) * WIN_W + (WIN_W - 1 - r->x)] = r->color;
 	}
 }
 
@@ -141,9 +141,9 @@ void			ft_raycast_block5(t_data *data, t_raycast *r)
 		r->weight * r->floory_wall + (1.0 - r->weight) * data->mydata->posy;
 		r->floor_texx = (int)(r->current_floorx * (double)64) % 64;
 		r->floor_texy = (int)(r->current_floory * (double)64) % 64;
-		data->img->data[(WIN_H - r->y) * WIN_W + r->x] =
+		data->img->data[(WIN_H - r->y) * WIN_W + (WIN_W - 1 - r->x)] =
 		(data->mydata->texture[1].data[64 * r->floor_texy + r->floor_texx] / 2);
-		data->img->data[(r->y) * WIN_W + r->x] =
+		data->img->data[(r->y) * WIN_W + (WIN_W - 1 - r->x)] =
 		data->mydata->texture[0].data[64 * r->floor_texy + r->floor_texx];
 	}
 }

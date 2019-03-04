@@ -6,7 +6,7 @@
 /*   By: rrhaenys <rrhaenys@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/05 07:03:09 by rrhaenys          #+#    #+#             */
-/*   Updated: 2019/03/04 13:22:27 by rrhaenys         ###   ########.fr       */
+/*   Updated: 2019/03/04 13:32:54 by rrhaenys         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,8 @@ int
 	if ((data->mydata->posx <= 1.0) || (data->mydata->posy <= 1.0) ||
 	(data->mydata->posx >= (x - 1.0)) || (data->mydata->posy >= (y - 1.0)))
 		return (1);
-	if (data->mydata->map.map[(int)
-	(data->mydata->posx + data->mydata->posy * x)] != 0)
+	if (data->mydata->map.map[
+		(int)data->mydata->posx + (int)data->mydata->posy * x] != 0)
 		return (1);
 	index = -1;
 	while (++index < x)
