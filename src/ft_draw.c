@@ -6,7 +6,7 @@
 /*   By: rrhaenys <rrhaenys@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/19 03:08:31 by rrhaenys          #+#    #+#             */
-/*   Updated: 2019/02/20 19:23:03 by rrhaenys         ###   ########.fr       */
+/*   Updated: 2019/03/04 13:16:44 by rrhaenys         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ void		line_vertical(t_data *data, int x, int *y, int color)
 
 	ind_y = y[0] - 1;
 	while (++ind_y <= y[1])
-		data->img->data[WIN_H - (ind_y * WIN_H + 1) + x] = color;
+		data->img->data[ind_y * WIN_H + x] = color;
 }
 
 void		ft_linefast_int(t_data *data, int *p1, int *p2, int color)

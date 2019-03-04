@@ -6,7 +6,7 @@
 /*   By: rrhaenys <rrhaenys@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/05 07:03:09 by rrhaenys          #+#    #+#             */
-/*   Updated: 2019/02/27 14:47:46 by rrhaenys         ###   ########.fr       */
+/*   Updated: 2019/03/04 13:22:27 by rrhaenys         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,22 +25,40 @@ int
 	if (x < 3 || y < 3)
 		return (1);
 	if ((data->mydata->posx <= 1.0) || (data->mydata->posy <= 1.0) ||
-	(data->mydata->posx >= (x - 1)) || (data->mydata->posy >= (y - 1)))
+	(data->mydata->posx >= (x - 1.0)) || (data->mydata->posy >= (y - 1.0)))
 		return (1);
 	if (data->mydata->map.map[(int)
-	(data->mydata->posx + data->mydata->posy * y)] != 0)
+	(data->mydata->posx + data->mydata->posy * x)] != 0)
 		return (1);
 	index = -1;
-	while (++index < y)
+	while (++index < x)
 		if ((data->mydata->map.map[index] == 0) ||
-		(data->mydata->map.map[(int)(index + (x - 1) * y)] == 0))
+		(data->mydata->map.map[(int)(index + (y - 1) * x)] == 0))
 			return (1);
 	index = -1;
-	while (++index < x)
-		if ((data->mydata->map.map[0 + index * y] == 0) ||
-			(data->mydata->map.map[(y - 1) + index * y] == 0))
+	while (++index < y)
+		if ((data->mydata->map.map[0 + index * x] == 0) ||
+			(data->mydata->map.map[(x - 1) + index * x] == 0))
 			return (1);
 	return (0);
+}
+
+void		ft_printf_map(t_map	*map)
+{
+	int	x;
+	int	y;
+
+	ft_printf("%d %d\n", map->size[0], map->size[1]);
+	y = -1;
+	while (++y < map->size[1])
+	{
+		x = -1;
+		while (++x < map->size[0])
+		{
+			ft_printf("%d ", map->map[x + y * map->size[0]]);
+		}
+		ft_printf("\n");
+	}
 }
 
 void		ft_start_game(t_data *data, char *str, int argc, char **argv)
@@ -64,6 +82,7 @@ void		ft_start_game(t_data *data, char *str, int argc, char **argv)
 		ft_putendl_fd("Map error", 2);
 		ft_close(data);
 	}
+	ft_printf_map(&data->mydata->map);
 }
 
 void		ft_open_win(char *str, int argc, char **argv)

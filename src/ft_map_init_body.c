@@ -6,7 +6,7 @@
 /*   By: rrhaenys <rrhaenys@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/16 21:16:54 by rrhaenys          #+#    #+#             */
-/*   Updated: 2019/02/20 18:20:18 by rrhaenys         ###   ########.fr       */
+/*   Updated: 2019/03/04 13:23:01 by rrhaenys         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,8 +79,8 @@ int			*ft_get_size(char *str)
 	ints = ft_strsplit(*res, ' ');
 	if (res != NULL && ints != NULL)
 	{
-		size[0] = ft_getsize(res);
-		size[1] = ft_getsize(ints);
+		size[1] = ft_getsize(res);
+		size[0] = ft_getsize(ints);
 	}
 	else
 	{
@@ -108,8 +108,6 @@ void		ft_create_map(t_data *data, char *str)
 		ints = ft_strsplit(res[index1], ' ');
 		index2 = -1;
 		while (ints[++index2] != NULL)
-			;
-		while (--index2 >= 0)
 			data->mydata->map.map[++index] = ft_atoi(ints[index2]);
 		ft_free(ints);
 	}

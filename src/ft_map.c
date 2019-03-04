@@ -6,7 +6,7 @@
 /*   By: rrhaenys <rrhaenys@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/20 17:04:07 by rrhaenys          #+#    #+#             */
-/*   Updated: 2019/02/27 14:52:02 by rrhaenys         ###   ########.fr       */
+/*   Updated: 2019/03/04 13:07:33 by rrhaenys         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,12 +23,12 @@ void		ft_draw_map(t_data *data)
 		pos[1] = -1;
 		while (++pos[1] < data->mydata->map.size[1])
 			if (data->mydata->map.map[
-					pos[1] + pos[0] * data->mydata->map.size[1]] != 0 &&
+					pos[0] + pos[1] * data->mydata->map.size[0]] != 0 &&
 				(data->mydata->map.flags[
-					pos[1] + pos[0] * data->mydata->map.size[1]] == 1 ||
+					pos[0] + pos[1] * data->mydata->map.size[0]] == 1 ||
 					!ft_is_flag(data, "-f")))
 			{
-				point[0] = (data->mydata->map.size[0] - 1 - pos[0]) * 5 + 50;
+				point[0] = pos[0] * 5 + 50;
 				point[1] = pos[1] * 5 + 50;
 				ft_draw_square(data, point, 2, 0xffffff);
 			}
