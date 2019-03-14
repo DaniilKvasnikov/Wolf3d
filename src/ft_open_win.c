@@ -6,7 +6,7 @@
 /*   By: rrhaenys <rrhaenys@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/05 07:03:09 by rrhaenys          #+#    #+#             */
-/*   Updated: 2019/03/04 13:32:54 by rrhaenys         ###   ########.fr       */
+/*   Updated: 2019/03/15 01:38:44 by rrhaenys         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ void		ft_start_game(t_data *data, char *str, int argc, char **argv)
 	if (data->mydata->map.map == NULL || in_map(data))
 	{
 		ft_putendl_fd("Map error", 2);
-		ft_close(data);
+		exit(0);
 	}
 	ft_printf_map(&data->mydata->map);
 }
