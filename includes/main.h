@@ -6,7 +6,7 @@
 /*   By: rrhaenys <rrhaenys@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/30 19:44:56 by rrhaenys          #+#    #+#             */
-/*   Updated: 2019/06/29 15:38:43 by rrhaenys         ###   ########.fr       */
+/*   Updated: 2019/07/12 15:05:15 by rrhaenys         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,51 @@
 
 # define BUF_SIZE 1024
 
+typedef struct	s_raycast
+{
+	int		x;
+	int		draw_pos[2];
+	double	ray_dirx;
+	double	ray_diry;
+	int		mapx;
+	int		mapy;
+	double	side_distx;
+	double	side_disty;
+	int		stepx;
+	int		stepy;
+	double	delta_distx;
+	double	delta_disty;
+	double	perp_walldist;
+	int		side;
+	int		line_height;
+	int		color;
+	int		tex_num;
+	int		y;
+	double	wallx;
+	int		texx;
+	int		d;
+	int		texy;
+	double	floorx_wall;
+	double	floory_wall;
+	double	dist_wall;
+	double	dist_player;
+	double	current_dist;
+	double	weight;
+	double	current_floorx;
+	double	current_floory;
+	int		floor_texx;
+	int		floor_texy;
+}				t_raycast;
+
+typedef struct	s_texture
+{
+	void		*image;
+	int			*data;
+	int			bpp;
+	int			sizeline;
+	int			end;
+}				t_texture;
+
 typedef struct	s_map
 {
 	int			*map;
@@ -55,6 +100,20 @@ typedef struct	s_map
 
 typedef struct	s_mydata
 {
+	double		posx;
+	double		posy;
+	double		dirx;
+	double		diry;
+	double		planex;
+	double		planey;
+	int			**world_map;
+	t_map		map;
+	t_texture	texture[5];
+	int			move;
+	int			turn;
+	int			run;
+	char		**argv;
+	int			argc;
 }				t_mydata;
 
 typedef struct	s_img

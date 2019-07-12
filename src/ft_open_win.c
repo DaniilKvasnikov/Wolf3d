@@ -6,7 +6,7 @@
 /*   By: rrhaenys <rrhaenys@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/05 07:03:09 by rrhaenys          #+#    #+#             */
-/*   Updated: 2019/03/15 01:38:44 by rrhaenys         ###   ########.fr       */
+/*   Updated: 2019/07/12 15:06:10 by rrhaenys         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,8 @@ int
 	return (0);
 }
 
-void		ft_printf_map(t_map	*map)
+void
+	ft_printf_map(t_map *map)
 {
 	int	x;
 	int	y;
@@ -61,7 +62,8 @@ void		ft_printf_map(t_map	*map)
 	}
 }
 
-void		ft_start_game(t_data *data, char *str, int argc, char **argv)
+void
+	ft_start_game(t_data *data, char *str, int argc, char **argv)
 {
 	data->mydata = (t_mydata *)malloc(sizeof(t_mydata));
 	data->mydata->posx = 1.2;
@@ -85,7 +87,8 @@ void		ft_start_game(t_data *data, char *str, int argc, char **argv)
 	ft_printf_map(&data->mydata->map);
 }
 
-void		ft_open_win(char *str, int argc, char **argv)
+void
+	ft_open_win(char *str, int argc, char **argv)
 {
 	t_data	data;
 
